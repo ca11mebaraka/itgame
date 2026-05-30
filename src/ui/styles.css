@@ -130,6 +130,64 @@ button.ghost {
   background: transparent;
 }
 
+.splash {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  cursor: pointer;
+  animation: fadeIn 0.5s ease both;
+}
+
+.splash-art {
+  width: 100%;
+  max-width: 460px;
+  height: auto;
+  image-rendering: pixelated;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: var(--card-2);
+}
+
+.splash-title {
+  margin: 4px 0 0;
+}
+
+.splash-hint {
+  margin: 0;
+  color: var(--muted);
+  animation: pulse 1.6s ease-in-out infinite;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 0.45;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .splash,
+  .splash-hint {
+    animation: none;
+  }
+}
+
 .progress {
   display: flex;
   justify-content: space-between;

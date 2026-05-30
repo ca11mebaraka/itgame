@@ -4,6 +4,7 @@ import { DIFFICULTY } from '../engine/balance';
 import type { Difficulty, GameState } from '../engine/state';
 import { fetchTop, submitRun, type LeaderRow } from '../services/leaderboard';
 import { esc, renderProgress, renderResources } from './view';
+import splashUrl from '../../product-manager-pixel-art.svg';
 
 export class App {
   private root: HTMLElement;
@@ -18,7 +19,32 @@ export class App {
 
   start(): void {
     this.nickname = localStorage.getItem('boa_nickname') ?? '';
-    this.renderMenu();
+    this.renderSplash();
+  }
+
+  // ───────────────────────── Сплеш-экран ─────────────────────────
+  private renderSplash(): void {
+    this.root.innerHTML = `
+      <main class="card splash" id="splash" role="button" tabindex="0" aria-label="Начать">
+        <img class="splash-art" src="${splashUrl}" alt="БекОфисные приключения" />
+        <h1 class="splash-title">БекОфисные приключения</h1>
+        <p class="splash-hint">нажмите, чтобы начать</p>
+      </main>`;
+
+    let dismissed = false;
+    let timer = 0;
+    const go = (): void => {
+      if (dismissed) return;
+      dismissed = true;
+      window.clearTimeout(timer);
+      this.renderMenu();
+    };
+    timer = window.setTimeout(go, 2800);
+    const splash = this.$('#splash');
+    splash.addEventListener('click', go);
+    splash.addEventListener('keydown', (e) => {
+      if ((e as KeyboardEvent).key === 'Enter' || (e as KeyboardEvent).key === ' ') go();
+    });
   }
 
   // ───────────────────────── Меню ─────────────────────────
