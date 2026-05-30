@@ -1,0 +1,120 @@
+<svg width="100%" viewBox="0 0 680 560" role="img" xmlns="http://www.w3.org/2000/svg">
+<title>Продакт-менеджер в стиле пиксель-арт с roadmap и котом</title>
+<desc>Пиксельный продакт-менеджер в современном офисе перед монитором с roadmap, рядом кот, стикеры, кофе и ноутбук</desc>
+<defs>
+<style>
+.px{shape-rendering:crispEdges;stroke:none}
+</style>
+</defs>
+
+<rect x="0" y="0" width="680" height="560" fill="#eef2f7" class="px"/>
+<rect x="0" y="430" width="680" height="130" fill="#dde4ee" class="px"/>
+
+<g class="px">
+<rect x="60" y="60" width="44" height="44" fill="#ffd966"/>
+<rect x="118" y="80" width="44" height="44" fill="#ff9aa2"/>
+<rect x="60" y="118" width="44" height="44" fill="#a0e8c0"/>
+<rect x="118" y="138" width="44" height="44" fill="#a8d8ff"/>
+<rect x="62" y="62" width="40" height="6" fill="#000000" opacity="0.06"/>
+</g>
+
+<g class="px" font-family="monospace">
+<text x="430" y="58" fill="#2d3a55" font-size="26" text-anchor="middle" letter-spacing="2" style="font-weight:bold">PRODUCT MANAGER</text>
+<text x="430" y="80" fill="#7a8aa5" font-size="13" text-anchor="middle" letter-spacing="2">sprint 14 — shipping it</text>
+</g>
+
+<g class="px">
+<rect x="280" y="500" width="120" height="40" fill="#b8c2d4"/>
+<rect x="270" y="490" width="140" height="10" fill="#9aa6bd"/>
+
+<rect x="180" y="250" width="320" height="225" fill="#33384a"/>
+<rect x="190" y="260" width="300" height="205" fill="#1c2030"/>
+<rect x="200" y="270" width="280" height="185" fill="#252b3d"/>
+
+<rect x="212" y="282" width="120" height="12" fill="#ffffff" opacity="0.85"/>
+<rect x="212" y="300" width="60" height="6" fill="#7a8aa5"/>
+
+<rect x="212" y="320" width="36" height="40" fill="#5a7af0"/>
+<rect x="252" y="320" width="36" height="40" fill="#33c98a"/>
+<rect x="292" y="320" width="36" height="40" fill="#f0a830"/>
+<rect x="332" y="320" width="36" height="40" fill="#e0556a"/>
+<rect x="212" y="322" width="36" height="6" fill="#ffffff" opacity="0.35"/>
+<rect x="252" y="322" width="36" height="6" fill="#ffffff" opacity="0.35"/>
+<rect x="292" y="322" width="36" height="6" fill="#ffffff" opacity="0.35"/>
+<rect x="332" y="322" width="36" height="6" fill="#ffffff" opacity="0.35"/>
+
+<rect x="212" y="372" width="200" height="10" fill="#5a7af0"/>
+<rect x="412" y="372" width="56" height="10" fill="#3a4260"/>
+<rect x="212" y="390" width="120" height="10" fill="#33c98a"/>
+<rect x="332" y="390" width="136" height="10" fill="#3a4260"/>
+<rect x="212" y="408" width="250" height="10" fill="#f0a830"/>
+<rect x="462" y="408" width="6" height="10" fill="#3a4260"/>
+<rect x="212" y="426" width="90" height="10" fill="#e0556a"/>
+<rect x="302" y="426" width="166" height="10" fill="#3a4260"/>
+
+<rect x="320" y="295" width="14" height="14" fill="#33c98a"/>
+<rect x="340" y="299" width="60" height="6" fill="#7a8aa5"/>
+<rect x="410" y="295" width="14" height="14" fill="#f0a830"/>
+<rect x="430" y="299" width="38" height="6" fill="#7a8aa5"/>
+</g>
+
+<g class="px">
+<rect x="270" y="140" width="140" height="40" fill="#e0a878"/>
+<rect x="270" y="140" width="140" height="20" fill="#f0c090"/>
+<rect x="282" y="128" width="116" height="18" fill="#3a2a1e"/>
+<rect x="296" y="122" width="88" height="12" fill="#3a2a1e"/>
+<rect x="296" y="155" width="14" height="14" fill="#1a1530"/>
+<rect x="370" y="155" width="14" height="14" fill="#1a1530"/>
+<rect x="324" y="165" width="32" height="6" fill="#c08858"/>
+
+<rect x="240" y="180" width="200" height="100" fill="#6a7adf"/>
+<rect x="240" y="180" width="200" height="14" fill="#7d8cf0"/>
+<rect x="240" y="180" width="60" height="100" fill="#5566c8"/>
+<rect x="380" y="180" width="60" height="100" fill="#5566c8"/>
+<rect x="306" y="194" width="68" height="86" fill="#e8ebf2"/>
+<rect x="320" y="206" width="40" height="8" fill="#6a7adf"/>
+<rect x="324" y="220" width="32" height="6" fill="#9aa6bd"/>
+
+<rect x="220" y="200" width="20" height="70" fill="#e0a878"/>
+<rect x="440" y="200" width="20" height="70" fill="#e0a878"/>
+<rect x="220" y="260" width="20" height="20" fill="#f0c090"/>
+<rect x="440" y="260" width="20" height="20" fill="#f0c090"/>
+</g>
+
+<g class="px">
+<rect x="500" y="380" width="70" height="60" fill="#d8a060"/>
+<rect x="500" y="380" width="70" height="60" fill="#e0ab68"/>
+<rect x="506" y="360" width="14" height="24" fill="#e0ab68"/>
+<rect x="550" y="360" width="14" height="24" fill="#e0ab68"/>
+<rect x="508" y="364" width="8" height="14" fill="#f0c890"/>
+<rect x="552" y="364" width="8" height="14" fill="#f0c890"/>
+<rect x="516" y="396" width="10" height="10" fill="#2a2218"/>
+<rect x="544" y="396" width="10" height="10" fill="#2a2218"/>
+<rect x="518" y="398" width="4" height="4" fill="#5ac8ff"/>
+<rect x="546" y="398" width="4" height="4" fill="#5ac8ff"/>
+<rect x="528" y="410" width="14" height="8" fill="#a06838"/>
+<rect x="531" y="416" width="8" height="6" fill="#d08080"/>
+<rect x="568" y="400" width="40" height="12" fill="#e0ab68"/>
+<rect x="600" y="370" width="12" height="42" fill="#e0ab68"/>
+<rect x="604" y="360" width="8" height="14" fill="#d8a060"/>
+</g>
+
+<g class="px">
+<rect x="100" y="410" width="90" height="56" fill="#3a3f52"/>
+<rect x="104" y="414" width="82" height="48" fill="#aab4c8"/>
+<rect x="110" y="420" width="70" height="36" fill="#d8deea"/>
+<rect x="118" y="426" width="40" height="5" fill="#5a7af0"/>
+<rect x="118" y="435" width="54" height="5" fill="#9aa6bd"/>
+<rect x="118" y="444" width="48" height="5" fill="#9aa6bd"/>
+<rect x="92" y="466" width="106" height="8" fill="#2a2e3c"/>
+</g>
+
+<g class="px">
+<rect x="120" y="320" width="34" height="44" fill="#ffffff"/>
+<rect x="120" y="320" width="34" height="12" fill="#e8ebf2"/>
+<rect x="138" y="316" width="6" height="6" fill="#8aa0c0"/>
+<rect x="154" y="332" width="12" height="20" fill="#e0a878"/>
+<rect x="126" y="332" width="22" height="20" fill="#c8702a"/>
+<rect x="126" y="338" width="22" height="6" fill="#a85820"/>
+</g>
+</svg>
