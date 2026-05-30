@@ -263,12 +263,16 @@ create view leaderboard as
 
 ### 9.2 Доступ и безопасность (RLS)
 
-- Включить **Row Level Security** на `players` и `runs`.
-- Политики для роли `anon`:
-  - `players`: `insert` разрешён (с проверкой длины ника); `select` — только свои строки по `client_uid` (или закрыт, читаем имена через вьюшку).
-  - `runs`: `insert` разрешён; прямой `select` закрыт — чтение только через `leaderboard`.
-  - `leaderboard` (view): публичное чтение (`grant select`).
-- `anon`-ключ кладётся в клиент (он публичный). **Сервисный ключ в репозиторий не попадает никогда.**
+Реализовано в `supabase/schema.sql`:
+- **Row Level Security включён** на `players` и `runs`, политик для `anon` нет →
+  прямой доступ к таблицам закрыт.
+- **Запись** — только через `SECURITY DEFINER` функцию **`submit_run(...)`**: она
+  валидирует данные на сервере (длина ника, `outcome`, `defended ≤ faced`, диапазоны),
+  делает upsert игрока по `client_uid` и вставляет партию. `grant execute` для `anon`.
+- **Чтение** — только через вьюшку `leaderboard` (без `client_uid`), `grant select` для `anon`.
+- `anon`-ключ публичный, кладётся в клиент. **Сервисный/`service_role` ключ и
+  `DATABASE_URL` (пароль БД) в репозиторий и в бандл не попадают никогда.**
+- Личная история партий — из `localStorage` (без авторизации серверный «мои партии» не нужен).
 
 ### 9.3 Защита от накрутки (важная оговорка)
 
@@ -355,15 +359,31 @@ itgame/
 публикация `dist/` через `actions/deploy-pages`. В `vite.config.ts` задаётся
 `base: '/itgame/'`. В настройках репозитория Pages → Source: GitHub Actions.
 
-**Supabase:**
-- Схема (`supabase/schema.sql`) применяется в проекте Supabase один раз (SQL Editor или CLI).
-- `VITE_SUPABASE_URL` и `VITE_SUPABASE_ANON_KEY` хранятся в **GitHub Actions Secrets**
-  и пробрасываются в шаг `build` как env. Локально — через `.env` (в `.gitignore`).
-- Сервисный/`service_role` ключ **не используется на клиенте и не коммитится**.
+**Supabase — проект (реквизиты, не-секретные):**
+- Project ref: `cfyfpifbjvldvscnyxtk`
+- Project URL: `https://cfyfpifbjvldvscnyxtk.supabase.co`
+- Pooler: `aws-1-eu-central-1.pooler.supabase.com:6543` (регион `eu-central-1`)
 
-> Аккаунт Supabase предоставит владелец репозитория. Нужны: `Project URL`, `anon public`
-> ключ и доступ к SQL Editor для применения схемы. Эти данные дать **не в чат и не в коммит**,
-> а сложить в GitHub Secrets (`Settings → Secrets and variables → Actions`).
+**Накатка схемы (один раз, локально):**
+```bash
+# DATABASE_URL берётся из .env (содержит пароль БД — секрет, не коммитить)
+psql "$DATABASE_URL" -f supabase/schema.sql
+# либо: вставить содержимое supabase/schema.sql в Dashboard → SQL Editor
+```
+
+**Ключи:**
+- `VITE_SUPABASE_URL` и `VITE_SUPABASE_ANON_KEY` — в `.env` локально (см. `.env.example`)
+  и в **GitHub Actions Secrets** для шага `build`.
+- `DATABASE_URL` (пароль БД) — **только локально**, для накатки схемы; не в бандл, не в коммит.
+- `service_role` ключ на клиенте **не используется**.
+
+> ⚠️ Прямое подключение `postgres.js` + `DATABASE_URL` (как в дефолтном визарде Supabase) —
+> серверный паттерн: не работает в браузере и утечёт пароль БД в статике. Поэтому в клиенте
+> используется только `@supabase/supabase-js` + `anon`-ключ, а `DATABASE_URL` — лишь для миграций.
+
+> Что ещё нужно от владельца Supabase: **`anon public` ключ** (Dashboard → Project Settings →
+> API). Класть в GitHub Secrets, **не в чат**. `DATABASE_URL` с паролем — тоже не в чат,
+> только в локальный `.env`.
 
 ---
 
