@@ -33,14 +33,15 @@ export class App {
 
     let dismissed = false;
     let timer = 0;
+    const splash = this.$('#splash');
     const go = (): void => {
       if (dismissed) return;
       dismissed = true;
       window.clearTimeout(timer);
-      this.renderMenu();
+      splash.classList.add('leaving');
+      window.setTimeout(() => this.renderMenu(), 420);
     };
-    timer = window.setTimeout(go, 2800);
-    const splash = this.$('#splash');
+    timer = window.setTimeout(go, 4000);
     splash.addEventListener('click', go);
     splash.addEventListener('keydown', (e) => {
       if ((e as KeyboardEvent).key === 'Enter' || (e as KeyboardEvent).key === ' ') go();

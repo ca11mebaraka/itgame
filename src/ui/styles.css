@@ -150,6 +150,10 @@ button.ghost {
   background: var(--card-2);
 }
 
+.splash.leaving {
+  animation: fadeOut 0.4s ease forwards;
+}
+
 .splash-title {
   margin: 4px 0 0;
 }
@@ -178,6 +182,16 @@ button.ghost {
   }
   50% {
     opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-8px);
   }
 }
 
