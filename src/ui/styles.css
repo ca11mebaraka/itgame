@@ -320,6 +320,50 @@ button.ghost {
   border: 1px solid #265a36;
 }
 
+.chosen {
+  line-height: 1.5;
+}
+.chosen-label {
+  color: var(--muted);
+}
+
+.verdict {
+  font-weight: 600;
+  margin: 4px 0 2px;
+}
+.verdict.won {
+  color: var(--good);
+}
+.verdict.lost {
+  color: var(--warn);
+}
+
+.deltas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 6px 0 4px;
+}
+.delta-chip {
+  font-size: 0.85rem;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--card-2);
+}
+.delta-chip.good {
+  color: var(--good);
+  border-color: var(--good);
+}
+.delta-chip.bad {
+  color: var(--bad);
+  border-color: var(--bad);
+}
+
+.resolution .resources {
+  margin-bottom: 18px;
+}
+
 .options {
   display: flex;
   flex-direction: column;

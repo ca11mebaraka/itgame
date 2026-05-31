@@ -3,7 +3,8 @@ import { analyze } from '../engine/scoring';
 import { DIFFICULTY } from '../engine/balance';
 import type { Difficulty, GameState } from '../engine/state';
 import { fetchTop, submitRun, type LeaderRow } from '../services/leaderboard';
-import { esc, renderProgress, renderResources } from './view';
+import { esc, renderDeltas, renderProgress, renderResources } from './view';
+import type { ChoiceOption, Resources, TurnRecord } from '../engine/state';
 import splashUrl from '../../product-manager-pixel-art.svg';
 
 export class App {
@@ -156,7 +157,6 @@ export class App {
           ${body}
         </div>
         <div class="options">${optionsHtml}</div>
-        ${this.feedbackSlot()}
       </main>`;
 
     this.root.querySelectorAll('.option').forEach((btn) => {
@@ -167,21 +167,63 @@ export class App {
     });
   }
 
-  private lastFeedback: string | null = null;
-
-  private feedbackSlot(): string {
-    if (!this.lastFeedback) return '';
-    const html = `<div class="banner feedback">✅ ${esc(this.lastFeedback)}</div>`;
-    this.lastFeedback = null;
-    return html;
-  }
-
   private onChoose(index: number): void {
     const state = this.state;
     if (!state || !state.current) return;
     const options = currentOptions(state);
-    this.lastFeedback = options[index]?.feedback || null;
+    const option = options[index];
+    if (!option) return;
+    const wasThreat = state.current.kind === 'threat';
+    const threatTitle = state.current.threat?.title;
+    const snapshot: Resources = { ...state.resources }; // ресурсы на момент решения
+
     choose(state, index);
+    const record = state.log[state.log.length - 1];
+
+    // Реакцию на угрозу показываем отдельным экраном-итогом.
+    // Случайные события реакции не имеют — идём дальше сразу.
+    if (wasThreat && record) {
+      const afterChoice = { ...snapshot } as Resources;
+      for (const key of Object.keys(record.delta) as (keyof Resources)[]) {
+        afterChoice[key] += record.delta[key] ?? 0;
+      }
+      this.renderResolution(option, record, afterChoice, threatTitle);
+    } else {
+      this.proceed();
+    }
+  }
+
+  // ───────────────────── Итог хода (реакция) ─────────────────────
+  private renderResolution(
+    option: ChoiceOption,
+    record: TurnRecord,
+    afterChoice: Resources,
+    threatTitle?: string,
+  ): void {
+    const state = this.state;
+    if (!state) return;
+    const verdict = record.defended ? '✅ Угроза отражена' : '⚠️ Угроза не отражена';
+    const verdictCls = record.defended ? 'won' : 'lost';
+
+    this.root.innerHTML = `
+      <main class="card resolution">
+        <div class="event-tier">📋 Итог хода</div>
+        ${threatTitle ? `<h2>${esc(threatTitle)}</h2>` : ''}
+        <p class="chosen"><span class="chosen-label">Ваше решение:</span> ${esc(option.text)}</p>
+        ${option.feedback ? `<div class="banner feedback">${esc(option.feedback)}</div>` : ''}
+        <div class="verdict ${verdictCls}">${verdict}</div>
+        <h3>Что изменилось</h3>
+        ${renderDeltas(record.delta)}
+        ${renderResources(afterChoice)}
+        <button id="continue" class="primary">Дальше →</button>
+      </main>`;
+
+    this.$('#continue').addEventListener('click', () => this.proceed());
+  }
+
+  private proceed(): void {
+    const state = this.state;
+    if (!state) return;
     if (state.status === 'playing') this.renderGame();
     else this.renderEnd();
   }

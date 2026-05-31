@@ -45,6 +45,21 @@ export function renderResources(res: Resources): string {
   return `<div class="resources"><div class="resources-title">📊 Ресурсы</div>${rows}</div>`;
 }
 
+// Изменения ресурсов после хода — цветные чипы со знаком.
+export function renderDeltas(delta: Partial<Resources>): string {
+  const chips = RESOURCE_META.filter((m) => (delta[m.key] ?? 0) !== 0)
+    .map((m) => {
+      const v = delta[m.key] as number;
+      // «хорошо» = рост ресурса; для техдолга наоборот — рост это плохо.
+      const positive = m.inverse ? v < 0 : v > 0;
+      const cls = positive ? 'good' : 'bad';
+      const sign = v > 0 ? '+' : '';
+      return `<span class="delta-chip ${cls}">${m.icon} ${esc(m.label)}: ${sign}${v}</span>`;
+    })
+    .join('');
+  return chips ? `<div class="deltas">${chips}</div>` : '<p class="muted">Ресурсы не изменились.</p>';
+}
+
 export function renderProgress(state: GameState): string {
   const defended = state.threatsFaced > 0 ? Math.round((state.threatsDefended / state.threatsFaced) * 100) : 0;
   return `
